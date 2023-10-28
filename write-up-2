@@ -1,0 +1,248 @@
+
+Level 1-
+- what is a directory, how to list all the files of a directory
+
+- head command
+
+- Chat GPT
+
+Level 2-
+- Tried to use the head command normally initially but it didn't work, after reading the material I learnt how to do so.
+- When the file begins with a hyphen, it confuses the compiler and different commands have to be used to access these files, you can also use cat
+command to open files. ./ is used to specify the current directory
+
+- used the cat ./ command
+
+- https://stackoverflow.com/questions/42187323/how-to-open-a-dashed-filename-using-terminal
+
+Level 3-
+- Read the material and used the command
+- Compiler gets confused when file names have spaces in them, its better to have filenames without spaces to make life easier for others as you can
+  then just use cat, head without the need of putting the file name in double quotes
+
+- Used the head command but the filename was in single quotes
+  cat "spaces in this filename"
+
+- https://linuxopsys.com/topics/how-to-read-filename-with-spaces-in-linux
+
+Level 4- 
+- Learnt about hidden files and directories and how to access them.
+  hidden files are mainly used for storing configuration files or user settings
+
+- used ls -a command
+
+- https://phoenixnap.com/kb/show-hidden-files-linux
+
+Level 5-
+- Initially just used the cat command for all files individually, but did some more googling and found out that file command tells you about the data
+in that file, for it to be human readable it should be of ASCII type. 
+You can also use the file ./-file* command to list the type of all of the files.
+
+- * is a 'wildcard' character and when it's used all the file names that begin with the given characters will be check so in this case all file names which
+begin with "file" will be checked
+ files may contain non-human readable data too
+
+- cat ./ command for all 9 files or file ./-file* once
+
+- https://www.hostinger.com/tutorials/linux-file-command/#:~:text=file%20*%20%E2%80%93%20lists%20all%20file%20types,displays%20information%20inside%20compressed%20files.  
+
+https://www.cse.msu.edu/Resources/Facilities/Howto/BasicUnixCommands.php#:~:text=It%20passes%20the%20interpreted%20version,them%20to%20the%20ls%20command.
+and ChatGPT
+
+Level 6-
+- used commands that make sure the file meets the criteria
+- You can use more than one -x command in a single line, c stands for bytes, f stands for file, ! which is the NOT operator is used to basically do or
+  find the opposite 
+
+-find -type f -size 1033c ! -executable
+
+- https://stackoverflow.com/questions/70539901/how-can-i-find-all-non-executable-files-in-a-directory-in-linux
+
+  https://pimylifeup.com/find-command/#:~:text=of%20your%20number.-,Finding%20by%20a%20Specific%20Size,using%20the%20letter%20M%20suffix.
+
+  https://sentry.io/answers/determine-whether-a-file-exists-or-not-in-bash/#:~:text=The%20Solution&text=The%20%2Df%20flag%20tests%20whether,can%20use%20the%20%2De%20flag.
+
+
+Level 7-
+- you can use a command to supress the permission denied messages
+  root directory is the topmost level of the system drive
+  / is used to start from the root directory to all the way down 
+
+- find / -type f -user bandit7 -group bandit6 -size 33c 2>/dev/null
+
+- Chat GPT
+
+Level 8-
+- Opened the file normally and found out there was too much information, hence tried to find a way to find the word "millionth" with a command instead
+- You can use grep command to find a specific word or string
+  grep can be paired with various command like -r which makes the process recursive which means that sub-directories would be checked too, -w which 
+  makes sure that the whole word matches not just a part of it, -i which makes it case insensitive etc...
+
+- grep "millionth" data.txt
+
+- https://www.maketecheasier.com/grep-find-specific-word-in-file-linux/
+  https://www.geeksforgeeks.org/grep-command-in-unixlinux/
+
+Level 9-
+- uniq -u command is paired with sort command to find all the unique lines of a file
+  uniq command compares only adjacent lines making the sort command necessary.
+  We use a | which makes the output of the previous command become the input of the next 
+
+- cat data.txt | sort | uniq -u
+
+- https://stackoverflow.com/questions/13778273/find-unique-lines
+
+Level 10-
+- The strings command is used to print only the human readable form, grep can be paired with strings command using |
+- strings data.txt | grep "====="
+- https://www.educba.com/linux-string-command/
+
+Level 11- 
+- Opened the file and decoded the data
+- Base 64 is a way of encoding data and is used widely e.g. email attachments
+  When data is encoded, special characters maybe lost however base64 solves this problem
+
+- used cat command and then decoded it online
+
+- https://www.base64decode.org/
+  https://www.youtube.com/watch?v=p5DL-tQUhXk
+
+Level 12-
+- Opened the file and decoded the data
+- Rot 13 is another way of encoding data
+  It is basically a ceaser cipher but the key is fixed which is 13
+
+- Used cat command and decoded it
+
+- rot13.com
+  https://www.youtube.com/watch?v=SsQwxKmxv3c
+
+Level 13-
+- As mentioned on the website, the first step is to create a directory under \tmp (we can't make a directory in the home directory as we do not the permission to do so) unsing mkdir /tmp/abc
+mkdir stands for make directory.
+
+we can also copy files using the copy command here we used cp ~/data.txt .  the ~/ specifies home directory and the last dot refers to the current one
+then when we open the file we can see that the file is in hexadecimal form and we need to decompresses it as specified on the website, we can use the xxd -r command -r does the opposite of compress i.e. decompress.
+After decompressing the file again we can see the contents to be just one character, something has gone wrong. Try some random commands for a while
+I got lucky and used the file command on the compressed file (the first one) and I saw the word gzip. I remember seeing that word in 'commands you may need to solve this level' and after some googling found out that we have to rename the file to something with a .gz and decompress using another command.
+as the website mentioned that it was decompressed multiple times, we have to decompress it and find out the file type (rename if necessary) until the file type is an ASCII type
+special thing to note is that we need to rename the file with .gz extension for gzip type decompression but that is not necessary for a bzip2 file
+
+- xxd -r 
+gzip -d filename.gz or gunzip filename.gz
+cp ~/data.txt .
+bzip2 -d filename or bunzip filename
+tar –xvzf filename.tar.gz
+
+
+
+https://www.freecodecamp.org/news/the-linux-cp-command-how-to-copy-files-in-linux/#:~:text=You%20use%20the%20cp%20command,also%20copy%20directories%20(folders).&text=%5Bfile%2Fdirectory%2Dsources%5D,directories%20you%20want%20to%20copy.
+
+https://www.linuxjournal.com/content/doing-reverse-hex-dump
+
+https://superuser.com/questions/480950/how-to-decompress-a-bz2-file
+
+https://linuxize.com/post/how-to-unzip-gz-file/
+
+https://phoenixnap.com/kb/extract-tar-gz-files-linux-command-line
+
+Level 14-
+-SSH keys are a more secure than traditional passwords
+There are two types of keys- public and private
+public keys can be calculated using the private key but not vice-versa
+The private key is on your laptop
+When you try to connect to a server, the server sends back a random string of text and the private key is used to decrypt is and sends its back basically confirming that it is you who is trying to connect
+When you log in to a computer, the SSH server uses the public key to "lock" messages in a way that can only be "unlocked" by your private key
+You should never share your private key
+the -i is used when your key is stored in a file also called the identity file
+
+-ssh -i sshkey.private bandit14@localhost -p 2220
+cat /etc/bandit_pass/bandit14
+
+
+-https://www.youtube.com/watch?v=85q6kX5dSoY
+https://unix.stackexchange.com/questions/23291/how-to-ssh-to-remote-server-using-a-private-key
+https://www.youtube.com/watch?v=dPAw4opzN9g
+
+Level 15-
+-Connecting to a port means establishing a communication channel between two networked devices
+we can connect to a port on a server using the telnet or netcat (nc) command
+
+-telnet localhost 30000
+
+
+-https://chat.openai.com/c/7593eab3-a0f6-43ac-a92a-cf795469681c
+
+Level 16-
+SSL stands for secure sockets layer
+SSL increases the security of the established link
+SSL basically encrypts all communications between your device and the server
+SSL certificate is a web server's digital certificate signed by a third party.
+The digital signature is created using the private key of the CA(certificate authority)
+Chrome and other various web browsers come pre-installed with the major CA's public key
+
+Connecting to a server which has https - 
+Step 1: The browser asks for a digital certificate 
+Step 2: The server sends its public key along with its ssl certificate 
+Step 3: The browsers check the digital signature of the certificate to make sure it is valid. A padlock appears indicating that the certificate is valid
+Step 4: The browser creates a symmetric key or shared secret and before sending it to the web server it encrypts it with the server’s public key
+Step 5: When the web server gets the encrypted key, it decrypts it using its private key
+from now on all the communications are encrypted and decrypted using the symmetric key
+
+openssl s_client -connect localhost:3000
+
+https://www.youtube.com/watch?v=33VYnE7Bzpk
+https://docs.pingidentity.com/r/en-us/solution-guides/htg_use_openssl_to_test_ssl_connectivity
+https://www.youtube.com/watch?v=ntVeD1sQDsg
+
+Level 17-
+We can scan the ports using the nmap command, from there we try check each one individually whether it speaks ssl. When we confirm the port, we get back a rsa key which we should should copy. We then create a new file and use the cat command to write to the file. We also need to change the permissions of the file so that only the owner can read it (as the server doesn't accept unsecure files) using the chmod command
+cat >> is used to append whereas cat > over-writes the previous content.
+chmod 400 means:
+
+The owner of the file (4): Read permission
+The group of the file (0): No permission
+Others (0): No permission
+
+cat > key.txt
+openssl s_client -connect localhost:31790
+nmap -p 31000-32000 localhost
+chmod 400 key.txt
+ssh -i key.txt bandit17@bandit.labs.overthewire.org -p 2220
+
+https://www.freecodecamp.org/news/what-is-nmap-and-how-to-use-it-a-tutorial-for-the-greatest-scanning-tool-of-all-time/
+https://docs.pingidentity.com/r/en-us/solution-guides/htg_use_openssl_to_test_ssl_connectivity
+https://unstop.com/blog/how-to-create-a-file-in-linux
+https://www.baeldung.com/linux/cat-writing-file
+
+Level 18-
+The diff command goes through each line from both the files and compares the two. The output can contain either a, c, d telling us how to change the first file to match the second file, a for change, d for delete, c for change. The command can be used to compare two directories as well (using the -r option).
+Lines after '<' are part of the first file and lines after '>' are part of the second. 
+eg. 3c3 mean change the 3rd line of the first text to the 3rd line of the second file
+
+diff passwords.old passwords.new
+
+https://www.youtube.com/watch?v=0k6obEKGTyk
+https://www.youtube.com/watch?v=f1jNBpn07VM
+https://www.geeksforgeeks.org/diff-command-linux-examples/
+https://www.tutorialspoint.com/how-to-use-diff-command-in-linux
+
+Level 19-
+.bashrc is a file that automatically executes when we connect to the server and in this case it logs you out
+We can execute the required command with the command to which connects to the server. When
+They are known as command line arguments
+
+ssh bandit18@bandit.labs.overthewire.org -p 2220 cat readme
+
+https://unix.stackexchange.com/questions/98698/ssh-parameter-to-ignore-bashrc-script
+
+Level 20-
+setuid is an executable file.
+to see the permissions of the file we do ls -l
+The permissions are written the following rwxrwxrwx, the first three letters indicate the user has all permissions (read=r, write=w and execute=x). The next three letters indicate the permission of the group and the last of everyone else. If one of the letters is replaced with -, this means the permission is not granted.
+
+./bandit20-do cat /etc/bandit_pass/bandit20
+
+https://mayadevbe.me/posts/overthewire/bandit/level20/
+
+
